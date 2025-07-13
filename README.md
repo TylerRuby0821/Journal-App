@@ -67,3 +67,6 @@ export default tseslint.config([
   },
 ])
 ```
+
+# Journal-App
+Journaling App(Side Project)
