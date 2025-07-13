@@ -1,0 +1,49 @@
+import React, { useState } from 'react';
+import type { Snippet } from '../types';
+
+interface SnippetFormProps {
+  onAdd: (snippet: Snippet) => void;
+}
+
+export const SnippetForm: React.FC<SnippetFormProps> = ({ onAdd }) => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title.trim() || !content.trim()) return;
+
+    const newSnippet: Snippet = {
+      id: crypto.randomUUID(),
+      title,
+      content,
+      createdAt: new Date().toISOString(),
+    };
+
+    onAdd(newSnippet);
+    setTitle('');
+    setContent('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="p-4 border rounded space-y-2">
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        className="w-full p-2 border rounded"
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <textarea
+        placeholder="Content"
+        value={content}
+        className="w-full p-2 border rounded"
+        onChange={(e) => setContent(e.target.value)}
+        rows={4}
+      />
+      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+        Save Snippet
+      </button>
+    </form>
+  );
+};
