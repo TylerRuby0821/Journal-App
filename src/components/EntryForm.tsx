@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import type { Snippet } from '../types';
+import type { Entry } from '../types';
 
-interface SnippetFormProps {
-  onAdd: (snippet: Snippet) => void;
+interface EntryFormProps {
+  onAdd: (entry: Entry) => void;
 }
 
-export const SnippetForm: React.FC<SnippetFormProps> = ({ onAdd }) => {
+export const EntryForm: React.FC<EntryFormProps> = ({ onAdd }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -13,14 +13,14 @@ export const SnippetForm: React.FC<SnippetFormProps> = ({ onAdd }) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) return;
 
-    const newSnippet: Snippet = {
+    const newEntry: Entry = {
       id: crypto.randomUUID(),
       title,
       content,
       createdAt: new Date().toISOString(),
     };
 
-    onAdd(newSnippet);
+    onAdd(newEntry);
     setTitle('');
     setContent('');
   };
@@ -42,7 +42,7 @@ export const SnippetForm: React.FC<SnippetFormProps> = ({ onAdd }) => {
         rows={4}
       />
       <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        Save Snippet
+        Save Entry
       </button>
     </form>
   );

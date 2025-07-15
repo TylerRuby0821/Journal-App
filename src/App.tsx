@@ -1,37 +1,37 @@
 import { useEffect, useState } from 'react';
-import type { Snippet } from './types';
-import { SnippetForm } from './components/SnippetForm';
-import { SnippetList } from './components/SnippetList';
+import type { Entry } from './types';
+import { EntryForm } from './components/EntryForm';
+import { EntryList } from './components/EntryList';
 
 function App() {
-  const [snippets, setSnippets] = useState<Snippet[]>([]);
+  const [entries, setEntries] = useState<Entry[]>([]);
 
   // Load from localStorage
   useEffect(() => {
-    const stored = localStorage.getItem('snippets');
+    const stored = localStorage.getItem('entries');
     if (stored) {
-      setSnippets(JSON.parse(stored));
+      setEntries(JSON.parse(stored));
     }
   }, []);
 
   // Save to localStorage on change
   useEffect(() => {
-    localStorage.setItem('snippets', JSON.stringify(snippets));
-  }, [snippets]);
+    localStorage.setItem('entries', JSON.stringify(entries));
+  }, [entries]);
 
-  const addSnippet = (snippet: Snippet) => {
-    setSnippets((prev) => [snippet, ...prev]);
+  const addEntry = (entry: Entry) => {
+    setEntries((prev) => [entry, ...prev]);
   };
 
-  const deleteSnippet = (id: string) => {
-    setSnippets((prev) => prev.filter((s) => s.id !== id));
+  const deleteEntry = (id: string) => {
+    setEntries((prev) => prev.filter((s) => s.id !== id));
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">📋 Snippet Saver</h1>
-      <SnippetForm onAdd={addSnippet} />
-      <SnippetList snippets={snippets} onDelete={deleteSnippet} />
+      <h1 className="text-2xl font-bold mb-4">📋 Journal</h1>
+      <EntryForm onAdd={addEntry} />
+      <EntryList entries={entries} onDelete={deleteEntry} />
     </div>
   );
 }
