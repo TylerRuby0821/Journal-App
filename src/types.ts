@@ -1,4 +1,4 @@
-export interface Snippet {
+export interface Entry {
   id: string;
   title: string;
   content: string;
