@@ -20,8 +20,10 @@ export const EntryList: React.FC<EntryListProps> = ({ entries, onDelete }) => {
               Delete
             </button>
           </div>
+            <p className="text-xs text-gray-500 mt-1">
+              Logged at {new Date(entry.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </p>
           <p className="mt-2 whitespace-pre-line text-sm">{entry.content}</p>
-          <p className="text-xs text-gray-500 mt-1">Saved on {new Date(entry.createdAt).toLocaleString()}</p>
         </div>
       ))}
     </div>

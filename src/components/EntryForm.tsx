@@ -6,34 +6,37 @@ interface EntryFormProps {
 }
 
 export const EntryForm: React.FC<EntryFormProps> = ({ onAdd }) => {
-  const [title, setTitle] = useState('');
+  
+  const getFormattedDate = () => {
+    const date = new Date();
+    return date.toLocaleDateString(undefined, {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+  
   const [content, setContent] = useState('');
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !content.trim()) return;
+    if (!content.trim()) return;
 
     const newEntry: Entry = {
       id: crypto.randomUUID(),
-      title,
+      title: getFormattedDate(),
       content,
       createdAt: new Date().toISOString(),
     };
 
     onAdd(newEntry);
-    setTitle('');
     setContent('');
   };
 
   return (
     <form onSubmit={handleSubmit} className="p-4 border rounded space-y-2">
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        className="w-full p-2 border rounded"
-        onChange={(e) => setTitle(e.target.value)}
-      />
       <textarea
         placeholder="Content"
         value={content}
